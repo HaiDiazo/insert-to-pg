@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     GAIAOCEAN_STAGING_AREA_USER: str
     GAIAOCEAN_STAGING_AREA_PASS: str
 
+    ES_GIS_HOST: str
+    ES_GIS_INDEX_PROVINCE: str
+
     class Config:
         env_file = '.env'
 

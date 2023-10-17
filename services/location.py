@@ -1,6 +1,7 @@
 from config.pg_config import client as conn
 from elasticsearch import Elasticsearch
 from shapely.geometry import mapping, shape
+from config.base import settings
 from loguru import logger
 
 
@@ -32,9 +33,9 @@ def query_province(province_name: str):
 def province(province_name: str):
     if province_name is not None:
         with Elasticsearch(
-                hosts="http://192.168.24.140:5200/"
+                hosts=settings.ES_GIS_HOST
         ) as es:
-            resp = es.search(body=query_province(province_name), index="catalog-location-province", size=1)
+            resp = es.search(body=query_province(province_name), index=settings.ES_GIS_INDEX_PROVINCE, size=1)
             for hit in resp['hits']['hits']:
                 source = hit['_source']
                 raw_geometry = source['geometry']
